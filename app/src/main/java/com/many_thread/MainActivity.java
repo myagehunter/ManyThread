@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
     /**
      * 3.以上两种线程实现，都有一个缺点不能得到线程任务执行完了之后，无法获取返回结果，于是callable 接口跟futurehe futureTask配合取得返回结果
      */
