@@ -17,5 +17,5 @@ Java 中 实现多线程的四种方式
  *SingleThreadPool 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。类似于单线程执行的效果一样。
   private static  final ExecutorService bachTaskPool=Executors.newSingleThreadExecutor();//源码采用的阻塞队列模式
   *ScheduledThreadPool 创建一个定长线程池(会指定容量初始化大小)，支持定时及周期性任务执行。可以实现一次性的执行延迟任务，也可以实现周期性的执行任务。
-    private static final ScheduledExecutorService bachTaskPool = Executors.newScheduledThreadPool(2);//任务调度功能  源码使用的是延迟队列
+   private static final ScheduledExecutorService bachTaskPool = Executors.newScheduledThreadPool(2);//任务调度功能  源码使用的是延迟队列
  
