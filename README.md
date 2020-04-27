@@ -19,3 +19,25 @@ Java 中 实现多线程的四种方式
   * ScheduledThreadPool 创建一个定长线程池(会指定容量初始化大小)，支持定时及周期性任务执行。可以实现一次性的执行延迟任务，也可以实现周期性的执行任务。
    private static final ScheduledExecutorService bachTaskPool = Executors.newScheduledThreadPool(2);//任务调度功能  源码使用的是延迟队列
    
+
+# ManyThread
+Four ways to implement multithreading in Java
+* 1. Inherit the Thread class, override the run method, and start the Thread. However, if the Thread is not started immediately, it will not start until the CPU allocates all the time to the current Thread
+* 2. Implement the Runnable method, initialize the Thread instance, and call the start method to start the Thread
+* 3. Both of the above two thread implementations have a disadvantage that they cannot get the return result after the completion of the thread task, so the callable interface and futurehe futureTask cooperate to get the return result to achieve the callable interface, and then create a new instance and call the start method
+* four. Thread pool here focus on why to use thread pool
+* implement the above three kinds of multi-threading are all new Thread instances, which has many disadvantages, such as 1. The Thread life cycle is very expensive, the creation of a Thread will require time to delay the processing of the request, requiring the virtual machine and operating system to provide some auxiliary operations
+2. Resource consumption. Active threads consume system resources, especially memory.If the number of threads available to run exceeds the number of processors available, some threads will be idle.A large number of idle threads can take up a lot of memory, putting pressure on the GC, and a large number of threads can generate others as they compete for CPU resources
+Performance overhead 3. The number of stable threads is limited, with increasing can improve the system throughput (instruction bar/execution time), but if more than expected to create more threads will only reduce the execution efficiency of the program or even cause the system to crash.
+* so if threads are created frequently, there is a thread pool, which is similar to a work queue which is equivalent to a pool of resources to manage the work of threads. It takes the task and executes the task, and then returns to the thread pool to wait for the next task.
+Will start, until you reach the largest number is no longer create but enter the blocking queue, advantages by reusing the existing thread rather than creating a new thread, share in create a thread to handle multiple requests and destruction process of huge overhead, and when the request arrives, the worker threads are usually already exists, so will not delay the task execution due to create a thread, so as to improve the performance.
+* four ways to pool threads:
+* the usage of FixedThreadPool USES a linked list-based blocking queue to create a fixed-length thread pool, one thread is created each time a task is submitted, until the maximum number of thread pools, where the size of the thread pool does not change
+Private static final ExecutorService bachTaskPool = Executors. NewFixedThreadPool (2);// using a blocking queue, threads that exceed the pool's capacity will wait in the queue
+* CachedThreadPool creates a cacheable thread pool with the flexibility to reclaim the idle thread if the thread pool length exceeds the processing requirements, or to create a new thread if there is no recovery
+Private static final ExecutorService bachTaskPool = Executors. NewCachedThreadPool ();// source code USES synchronous queues
+* SingleThreadPool creates a single-threaded thread pool that only USES a single worker thread to execute tasks, ensuring that all tasks execute in the specified order (FIFO, LIFO, priority).Similar to single threaded execution.
+Private static final ExecutorService bachTaskPool = Executors. NewSingleThreadExecutor ();// the blocking queue mode adopted by the source code
+* ScheduledThreadPool creates a fixed-length thread pool (which specifies the size of the capacity initialization) that supports scheduled and periodic task execution.You can implement either a one-time deferred task or a periodic task.
+Private static final ScheduledExecutorService bachTaskPool = Executors. NewScheduledThreadPool (2);// task scheduling function source USES the delay queue
+   
