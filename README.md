@@ -20,7 +20,7 @@ Java 中 实现多线程的四种方式
    private static final ScheduledExecutorService bachTaskPool = Executors.newScheduledThreadPool(2);//任务调度功能  源码使用的是延迟队列
    
 
-# ManyThread
+
 Four ways to implement multithreading in Java
 * 1. Inherit the Thread class, override the run method, and start the Thread. However, if the Thread is not started immediately, it will not start until the CPU allocates all the time to the current Thread
 * 2. Implement the Runnable method, initialize the Thread instance, and call the start method to start the Thread
